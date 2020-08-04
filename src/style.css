@@ -1,3 +1,19 @@
+html {
+    background: transparent !important;
+}
+
+.scroll-decoration {
+    box-shadow: none !important;
+}
+
+body{
+    FONT-WEIGHT: 100;
+    margin: 0;
+    padding: 0;
+    background: transparent !important;
+
+}
+
 #vditor{
     padding-top: 30px;
     width: 400px;
@@ -14,10 +30,7 @@
     height: 30px;
     top: 0;
     width: 100%;
-    -webkit-app-region: drag; 
+    -webkit-app-region: drag;
     background-color: black;
 }
-body{
-    margin: 0;
-    padding: 0;
-}
+

@@ -1,6 +1,8 @@
 const {app, BrowserWindow} = require('electron')
 const url = require('url')
 const path = require('path')
+const readline = require('readline');
+const { Console } = require('console');
 
 
 let win
@@ -11,8 +13,10 @@ function createWindow(){
         height: 600,
         frame: false,
         webPreferences: {
-            nodeIntegration: true
-        }
+            nodeIntegration: true,
+            experimentalFeatures: true
+        },
+        vibrancy: 'light'
     })
     win.setAlwaysOnTop(true, 'screen')
     win.loadURL(url.format ({
@@ -20,6 +24,38 @@ function createWindow(){
         protocol: 'file',
         slashes: true
     }))
+    return win
 }
 
-app.on('ready', createWindow)
+function main(){
+    console.log('Welcome to use PIN. Press h for more info.')
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+        prompt: 'PIN>>>'
+    })
+    winQueue = []
+
+    rl.prompt()
+    rl.on('line', (line) => {
+        switch(line){
+            case 'new':
+                winQueue.push(createWindow())
+                rl.prompt()
+                break
+            case 'rm':
+                winQueue[winQueue.length-1].close()
+                winQueue.pop()
+                rl.prompt()
+                break
+            case 'q':
+                process.exit(0)
+            default:
+                console.log(`Unrecognized command ${line}`)
+        }
+    }).on('close', () => {
+        console.log('Bye!')
+    })
+}
+
+app.on('ready', main)
