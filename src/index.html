@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vditor/dist/index.min.js"></script>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    
+   <!--<h1>Hello World!</h1>
+   We are using node <script>document.write(process.version.node)</script>,
+   Chrome <script>document.write(process.versions.chrome)</script>,
+   and Electron <script>document.write(process.versions.electron)</script>,
+    -->
+</body>
+    <div class="container">
+        <div id="topbar"></div>
+        <div id="vditor"></div>
+    </div>
+   <script>
+    (function() { 
+        const vditor = new Vditor('vditor', {
+            toolbarConfig: {
+                            pin: true,
+                          
+                },
+            cache: {
+                            enable: false,
+                          
+                },
+            after () {
+                            vditor.setValue('Start typing from here!')
+                          
+                },
+                
+    })})();
+      
+</script>
+</html>
