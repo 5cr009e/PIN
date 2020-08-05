@@ -8,34 +8,51 @@
     <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-    
-   <!--<h1>Hello World!</h1>
-   We are using node <script>document.write(process.version.node)</script>,
-   Chrome <script>document.write(process.versions.chrome)</script>,
-   and Electron <script>document.write(process.versions.electron)</script>,
-    -->
-</body>
     <div class="container">
-        <div id="topbar"></div>
+        <div id="topbar">
+            
+        </div>
         <div id="vditor"></div>
     </div>
+    <!-- <button id="new-window">New</button> -->
    <script>
-    (function() { 
-        const vditor = new Vditor('vditor', {
-            toolbarConfig: {
-                            pin: true,
-                          
+       
+        (function() { 
+            const vditor = new Vditor('vditor', 
+                {
+                    toolbarConfig: {
+                        pin: true,    
+                    },
+                    cache: {
+                        enable: false,    
+                    },
+                after () {
+                    vditor.setValue('Pin!')}})})()
+        
+        const bw = require('electron').remote.BrowserWindow
+        function createWindow(BrowserWindow){
+            let win = new BrowserWindow({
+                width: 400,
+                height: 600,
+                frame: false,
+                webPreferences: {
+                    nodeIntegration: true,
+                    experimentalFeatures: true
                 },
-            cache: {
-                            enable: false,
-                          
-                },
-            after () {
-                            vditor.setValue('Pin!')
-                          
-                },
-                
-    })})();
-      
+                vibrancy: 'light'
+            })
+            win.setAlwaysOnTop(true, 'screen')
+            win.loadURL(url.format ({
+                pathname: path.join(__dirname, 'index.html'),
+                protocol: 'file',
+                slashes: true
+            }))
+            return win
+        }
+        const btn = document.getElementById('new-window')
+        btn.addEventListener("click", () => {createWindow(bw)})
+        
 </script>
+</body>
+   
 </html>

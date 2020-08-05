@@ -13,11 +13,14 @@ body{
     background: transparent !important;
 
 }
-
+#new-window{
+    color: white;
+    padding-left: 10px;
+}
 #vditor{
-    padding-top: 30px;
+    padding-top: 40px;
     width: 400px;
-    height: 570px;
+    height: 560px;
 } 
 
 #container{
@@ -27,7 +30,7 @@ body{
 
 #topbar{
     position: fixed;
-    height: 30px;
+    height: 40px;
     top: 0;
     width: 100%;
     -webkit-app-region: drag;
