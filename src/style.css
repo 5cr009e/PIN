@@ -11,24 +11,45 @@ body{
     margin: 0;
     padding: 0;
     background: transparent !important;
+    width: 400px;
+    height: 600px;
 
 }
+.div-btn{
+    height: 18px;
+    width: 200px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+    border-width: 1px;
+    border-style: solid;
+	border-color: black ;
+}
+.display-flex {
+    display: flex;
+}
+
 #new-window{
     color: white;
-    padding-left: 10px;
+    background-color: black;
 }
+#remove-window{
+    color: black;
+    background-color: white;
+}
+
 #vditor{
     padding-top: 40px;
     width: 400px;
     height: 560px;
 } 
 
-#container{
+.container{
     height: 600px;
     width: 400px;
 }
 
-#topbar{
+.topbar{
     position: fixed;
     height: 40px;
     top: 0;

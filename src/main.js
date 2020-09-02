@@ -2,7 +2,9 @@ const {app, BrowserWindow} = require('electron')
 const url = require('url')
 const path = require('path')
 const readline = require('readline');
-let winQueue = []
+// var readlineSync = require('readline-sync');
+
+app.winQueue = []
 function createWindow(BrowserWindow){
     let win = new BrowserWindow({
         width: 400,
@@ -23,21 +25,20 @@ function createWindow(BrowserWindow){
     return win
 }
 
-function appendWindow(){
-    winQueue.push(createWindow(BrowserWindow))
+app.appendWindow = function (){
+    app.winQueue.push(createWindow(BrowserWindow))
 }
 
-function removeWindow(){
-    winQueue[winQueue.length-1].close()
-    winQueue.pop()
+app.removeWindow = function (){
+    app.winQueue[app.winQueue.length-1].close()
+    app.winQueue.pop()
 }
-
 
 function main(){
     console.log('Welcome to use PIN. Press h for more info.')
     if (process.platform == "win32") {
         console.log('On win32 platform, cli is not support.')
-        appendWindow()
+        app.appendWindow()
     } else {
         const rl = readline.createInterface({
             input: process.stdin,
@@ -48,20 +49,24 @@ function main(){
         rl.on('line', (line) => {
             switch(line){
                 case 'new':
-                    appendWindow()
+                    app.appendWindow()
                     rl.prompt()
                     break
                 case 'rm':
-                    removeWindow()
+                    app.removeWindow()
                     rl.prompt()
                     break
                 case 'q':
                     console.log("Bye!")
                     process.exit(0)
                 default:
-                    console.log(`Unrecognized command ${line}`)}})
+                    console.log(`Unrecognized command ${line}`)}
+            rl.close()
+            rl.prompt()
+        }).on('close',function(){
+            process.exit(0);
+        });  
     }
-   
 }
 
 app.on('ready', main)
