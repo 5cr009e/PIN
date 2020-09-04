@@ -8,7 +8,7 @@ app.winQueue = []
 function createWindow(BrowserWindow){
     let win = new BrowserWindow({
         width: 400,
-        height: 600,
+        height: 800,
         frame: false,
         webPreferences: {
             nodeIntegration: true,

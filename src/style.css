@@ -12,36 +12,58 @@ body{
     padding: 0;
     background: transparent !important;
     width: 400px;
-    height: 600px;
+    height: 800px;
+    overflow-x: hidden;
+
 
 }
 .div-btn{
     height: 18px;
-    width: 200px;
+    width: 133px;
     text-align: center;
     vertical-align: middle;
     padding: 10px;
     border-width: 1px;
     border-style: solid;
-	border-color: black ;
+    border-color: black;
+    user-select:none;
+
 }
 .display-flex {
     display: flex;
 }
 
-#new-window{
+.dark-btn{
+    /* width: 200px; */
     color: white;
     background-color: black;
+    border-color:  black white black black ;
 }
-#remove-window{
+
+.dark-btn:hover {
+    /* width: 200px; */
     color: black;
     background-color: white;
+    border-color: white black white white ;
+}
+
+
+.light-btn{
+    color: black;
+    background-color: white;
+    border-color: white black white white ;
+}
+
+.light-btn:hover {
+    color: white;
+    background-color: black;
+    border-color: black white black black ;
 }
 
 #vditor{
     padding-top: 40px;
     width: 400px;
-    height: 560px;
+    height: 760px;
 } 
 
 .container{

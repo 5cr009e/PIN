@@ -16,30 +16,60 @@
         <div id="vditor"></div>
 
         <div class="display-flex">
-            <div id="new-window" class="div-btn">Pin</div>
-            <div id="remove-window" class="div-btn">Pop</div>
+            <div id="new-window" class="div-btn dark-btn">Pin</div>
+            <!-- <div id="remove-window" class="div-btn dark-btn">Pop</div> -->
+            <div id="btn-save" class="div-btn light-btn">Save</div>
+            <div id="btn-load" class="div-btn light-btn">Load</div>
         </div>
 
     </div>
 
    <script>
-        (function() { 
-            const vditor = new Vditor('vditor', 
-                {
-                    toolbarConfig: {
-                        pin: true,    
-                    },
-                    cache: {
-                        enable: false,    
-                    },
-                after () {
-                    vditor.setValue('Pin!')}})})()
-        const { remote } = require('electron')
-        const btn_new = document.getElementById('new-window')
-        btn_new.addEventListener("click", () => {console.log('pressed'); remote.app.appendWindow()})
+        const { app, dialog } = require('electron').remote
+        const fs  = require('fs')
+        const vditor = new Vditor('vditor', 
+            {
+                toolbarConfig: {
+                    pin: true,    
+                },
+                cache: {
+                    enable: false,    
+                },
+            after () {
+                vditor.setValue('Pin!')}})
 
+
+        const btn_new = document.getElementById('new-window')
+        btn_new.addEventListener("click", () => { app.appendWindow() })
+
+        /*
         const btn_rm = document.getElementById('remove-window')
-        btn_rm.addEventListener("click", () => {console.log('pressed'); remote.app.removeWindow()})
+        btn_rm.addEventListener("click", () => { app.removeWindow() })
+        */
+        function save_content() {
+            dialog.showSaveDialog({
+                title: "Save File"
+            }).then((res) => {
+                console.log(res)
+                fs.writeFileSync(res.filePath, vditor.getValue())
+            }).catch((req) => console.log(req))
+        }
+
+        function load_content(){
+            dialog.showOpenDialog(
+                { properties: ['openFile'] }
+            ).then((res) => {
+                console.log(res.filePaths[0])
+                vditor.setValue(fs.readFileSync(res.filePaths[0]))
+            }).catch((req) => console.log(req))
+        }
+
+        const btn_save = document.getElementById('btn-save')
+        btn_save.addEventListener("click", () => { save_content() })
+
+        const btn_load = document.getElementById('btn-load')
+        btn_load.addEventListener("click", () => { load_content() })
+
 
 </script>
 </body>
