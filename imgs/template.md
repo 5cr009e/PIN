@@ -1,6 +1,6 @@
 # Code and Latex!
 
-I love Haskell (Seriously?)!
+I love Haskell (seriously?)!
 
 ```
 class Monad m where
