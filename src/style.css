@@ -8,6 +8,10 @@ html {
     box-shadow: none !important;
 }
 
+body::-webkit-scrollbar {
+    display: none;
+}
+
 body{
     FONT-WEIGHT: 100;
     margin: 0;
@@ -28,8 +32,10 @@ body{
     border-color: black;
     user-select:none;
 }
-.display-flex {
+.display-flex{
     display: flex;
+}
+.display-btns {
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -39,27 +45,33 @@ body{
     /* width: 200px; */
     color: white;
     background-color: black;
-    border-color:  black white black black ;
+    /* border-color:  black white black black ; */
+    border-color:black; 
 }
 
 .dark-btn:hover {
     /* width: 200px; */
     color: black;
     background-color: white;
-    border-color: white black white white ;
+    /* border-color: white black white white ; */
+    border-color: white;
 }
 
 
 .light-btn{
     color: black;
     background-color: white;
-    border-color: white black white white ;
+    /* border-color: white black white white ; */
+    border-color: white;
+
 }
 
 .light-btn:hover {
     color: white;
     background-color: black;
-    border-color: black white black black ;
+    /* border-color: black white black black ; */
+    border-color:black; 
+
 }
 
 #vditor{
@@ -74,11 +86,49 @@ body{
     width: 100%;
 }
 
-.topbar{
+#btn-minimize{
+    position: fixed;
+    height: 40px;
+    width: 10%;
+    right: 0;
+    background-color: black;
+    align-items: center;
+}
+
+
+
+#btn-theme-cold{
+    position: fixed;
+    height: 40px;
+    width: 10%;
+    left: 0;
+    background-color: black;
+    align-items: center;
+}
+
+#btn-theme-warm{
+    position: fixed;
+    height: 40px;
+    width: 10%;
+    left: 10%;
+    background-color: black;
+    align-items: center;
+}
+#btn-theme-black{
+    position: fixed;
+    height: 40px;
+    width: 10%;
+    left: 20%;
+    background-color: black;
+    align-items: center;
+}
+
+.top-bar{
     position: fixed;
     height: 40px;
     top: 0;
-    width: 100%;
+    left: 30%;
+    width: 60%;
     -webkit-app-region: drag;
     background-color: black;
 }

@@ -9,69 +9,49 @@
 </head>
 <body>
     <div class="container">
+        <!-- Container of Everything  -->
+        <div class="display-flex">
+            <!-- container of top-bar and minimize button on top right -->
+            <div id="btn-theme-cold">
+                <svg width="100%" height="100%">
+                    <circle id="mycircle" cx="20px" cy="20px" r="8" fill="MidnightBlue" />
+                </svg>
+            </div>
 
-        <div class="topbar">
+            <div id="btn-theme-warm">
+                <svg width="100%" height="100%">
+                    <circle id="mycircle" cx="20px" cy="20px" r="8" fill="SandyBrown" />
+                </svg>
+            </div>
+
+            <div id="btn-theme-black">
+                <svg width="100%" height="100%">
+                    <circle id="mycircle" cx="20px" cy="20px" r="8" fill="black" />
+                </svg>
+            </div>
+
+            <div class="top-bar">
+            </div>
+            <div id="btn-minimize">
+                <svg width="100%" height="100%">
+                    <circle id="mycircle" cx="20px" cy="20px" r="8" fill="white" />
+                </svg>
+            </div>
+            
         </div>
-
+       
+        <!-- main body for vditor -->
         <div id="vditor"></div>
 
-        <div class="display-flex">
+        <!-- Aligned buttons including Pin, save and load -->
+        <div class="display-flex display-btns">
             <div id="new-window" class="div-btn dark-btn">Pin</div>
             <!-- <div id="remove-window" class="div-btn dark-btn">Pop</div> -->
             <div id="btn-save" class="div-btn light-btn">Save</div>
             <div id="btn-load" class="div-btn light-btn">Load</div>
         </div>
-
     </div>
-
-   <script>
-        const { app, dialog } = require('electron').remote
-        const fs  = require('fs')
-        const vditor = new Vditor('vditor', 
-            {
-                toolbarConfig: {
-                    pin: true,    
-                },
-                cache: {
-                    enable: false,    
-                },
-            after () {
-                vditor.setValue('Pin!')}})
-
-
-        const btn_new = document.getElementById('new-window')
-        btn_new.addEventListener("click", () => { app.appendWindow() })
-
-        /*
-        const btn_rm = document.getElementById('remove-window')
-        btn_rm.addEventListener("click", () => { app.removeWindow() })
-        */
-        function save_content() {
-            dialog.showSaveDialog({
-                title: "Save File"
-            }).then((res) => {
-                console.log(res)
-                fs.writeFileSync(res.filePath, vditor.getValue())
-            }).catch((req) => console.log(req))
-        }
-
-        function load_content(){
-            dialog.showOpenDialog(
-                { properties: ['openFile'] }
-            ).then((res) => {
-                console.log(res.filePaths[0])
-                vditor.setValue(fs.readFileSync(res.filePaths[0]))
-            }).catch((req) => console.log(req))
-        }
-
-        const btn_save = document.getElementById('btn-save')
-        btn_save.addEventListener("click", () => { save_content() })
-
-        const btn_load = document.getElementById('btn-load')
-        btn_load.addEventListener("click", () => { load_content() })
-
-
-</script>
+<script src="render.js"></script>
 </body>
    
 </html>
