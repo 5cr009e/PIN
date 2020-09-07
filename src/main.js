@@ -36,7 +36,7 @@ app.removeWindow = function (){
 
 function main(){
     console.log('Welcome to use PIN. Press h for more info.')
-    if (process.platform == "win32 || true") {
+    if (process.platform == "win32" || true) {
         console.log('Cli is not support.')
         app.appendWindow()
     } else {
