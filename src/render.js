@@ -1,90 +1,110 @@
 const { remote } = require('electron')
-const { app, dialog } = require('electron').remote
 const fs  = require('fs')
-const vditor = new Vditor('vditor', 
-    {
-        toolbarConfig: {
-            pin: true,    
-        },
-        cache: {
-            enable: false,    
-        },
-    after () {
-        vditor.setValue('Pin!')}})
+const { app, dialog } = require('electron').remote
 
-const vditor_element = document.getElementById('vditor')
-const btn_new = document.getElementById('new-window')
-btn_new.addEventListener("click", () => { app.appendWindow() })
-
-/*
-const btn_rm = document.getElementById('remove-window')
-btn_rm.addEventListener("click", () => { app.removeWindow() })
-*/
-function save_content() {
-    dialog.showSaveDialog({
-        title: "Save File"
-    }).then((res) => {
-        console.log(res)
-        fs.writeFileSync(res.filePath, vditor.getValue())
-    }).catch((req) => console.log(req))
-}
-
-function load_content(){
-    dialog.showOpenDialog(
-        { properties: ['openFile'] }
-    ).then((res) => {
-        console.log(res.filePaths[0])
-        vditor.setValue(fs.readFileSync(res.filePaths[0]))
-    }).catch((req) => console.log(req))
-}
-
-const btn_save = document.getElementById('btn-save')
-btn_save.addEventListener("click", () => { save_content() })
-
-const btn_load = document.getElementById('btn-load')
-btn_load.addEventListener("click", () => { load_content() })
-
-
-/* initialize minimize variable */
-minimize = false
-const btn_minimize = document.getElementById('btn-minimize')
-btn_minimize.addEventListener("click", () => {
-    if (!minimize){
-        remote.getCurrentWindow().setSize(400, 80)
-        vditor_element.style.visibility  = 'hidden'
-    } else {
-        remote.getCurrentWindow().setSize(400, 800) 
-        vditor_element.style.visibility  = 'visible'
+class Button{
+    constructor(id, clickEvent){
+        this.btn = document.getElementById(id).addEventListener("click", () => { clickEvent() })
+        return this.btn
     }
-    console.log(minimize)
-    minimize = !minimize
-})
-
-function update_theme(color){
-    [
-        '.top-bar',
-        '#btn-minimize',
-        '#btn-theme-cold',
-        '#btn-theme-warm',
-        '#btn-theme-black',
-        '.dark-btn',
-    ].forEach((e) => { document.querySelector(e).style.backgroundColor = color })
 }
 
-const btn_cold = document.getElementById('btn-theme-cold')
-btn_cold.addEventListener("click", () => {
-     update_theme('MidnightBlue')
+class ChangeThemeButton extends Button{
+    constructor(id, theme){
+        let update_theme = function(color){
+            [
+                '.top-bar',
+                '#btn-minimize',
+                '#btn-theme-cold',
+                '#btn-theme-warm',
+                '#btn-theme-black',
+                '.dark-btn',
+            ].forEach((e) => { document.querySelector(e).style.backgroundColor = color })
+        }
+        super(id, () => {update_theme(theme)})
+        // this.update_theme = update_theme
+    }
+}
 
-})
+class MinimizeButton extends Button{
+    constructor(id, vditor_element){
+        super(id, () => {
+            if (!this.minimize){
+                remote.getCurrentWindow().setSize(400, 80)
+                vditor_element.style.visibility  = 'hidden'
+            } else {
+                remote.getCurrentWindow().setSize(400, 800) 
+                vditor_element.style.visibility  = 'visible'
+            }
+            console.log(this.minimize)
+            this.minimize = !this.minimize
+        })
+        this.minimize = false
+    }
+}
 
-const btn_warm = document.getElementById('btn-theme-warm')
-btn_warm.addEventListener("click", () => {
-     update_theme('SandyBrown')
+class SaveButton extends Button{
+    constructor(vditor, id){
+        super(id, () => {
+            dialog.showSaveDialog({
+                title: "Save File"
+            }).then((res) => {
+                console.log(res)
+                fs.writeFileSync(res.filePath, vditor.getValue())
+            }).catch((req) => console.log(req))
+        })
+    }
+}
 
-})
+class LoadButton extends Button{
+    constructor(vditor, id){
+        super(id, () => {
+            dialog.showOpenDialog(
+            { properties: ['openFile'] }
+        ).then((res) => {
+            console.log(res.filePaths[0])
+            vditor.setValue(fs.readFileSync(res.filePaths[0]))
+        }).catch((req) => console.log(req))})
+    }
+}
 
-const btn_black = document.getElementById('btn-theme-black')
-btn_black.addEventListener("click", () => {
-     update_theme('black')
+class VditorComponent{
+    constructor(initValue = 'Pin!'){
+        let vditor = new Vditor('vditor', 
+            {
+                toolbarConfig: {
+                    pin: true,    
+                },
+                cache: {
+                    enable: false,    
+                },
+                after () {
+                    vditor.setValue(initValue)}})
+        this.vditor = vditor
+    }
 
-})
+    getElement(){
+        return document.getElementById('vditor')
+    }
+
+    getVditor(){
+        return this.vditor
+    }
+}
+
+class PIN{
+    constructor(){
+        this.vditor = new VditorComponent()
+        this. btn_minimize = new MinimizeButton('btn-minimize', this.vditor.getElement())
+        this. btn_cold = new ChangeThemeButton('btn-theme-cold', 'MidnightBlue')
+        this. btn_warm = new ChangeThemeButton('btn-theme-warm', 'SandyBrown')
+        this. btn_black = new ChangeThemeButton('btn-theme-black', 'black')
+
+        this.btn_new = new Button('new-window', app.appendWindow)
+        this.btn_save = new SaveButton(this.vditor.getVditor() ,'btn-save')
+        this.btn_load = new LoadButton(this.vditor.getVditor() ,'btn-load')
+    }
+}
+
+new PIN()
+
