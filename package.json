@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "electron src/main.js"
+    "start": "electron main.js"
   },
   "author": "",
   "license": "ISC",

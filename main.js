@@ -5,7 +5,7 @@ const readline = require('readline');
 // var readlineSync = require('readline-sync');
 
 app.winQueue = []
-function createWindow(){
+function createWindow(BrowserWindow){
     let win = new BrowserWindow({
         width: 400,
         height: 800,
@@ -14,11 +14,11 @@ function createWindow(){
             nodeIntegration: true,
             experimentalFeatures: true
         },
-        // vibrancy: 'light'
+        vibrancy: 'light'
     })
     win.setAlwaysOnTop(true, 'screen')
     win.loadURL(url.format ({
-        pathname: path.join(__dirname, 'index.html'),
+        pathname: path.join(__dirname, 'app/index.html'),
         protocol: 'file',
         slashes: true
     }))
@@ -26,7 +26,7 @@ function createWindow(){
 }
 
 app.appendWindow = function (){
-    app.winQueue.push(createWindow())
+    app.winQueue.push(createWindow(BrowserWindow))
 }
 
 app.removeWindow = function (){
@@ -36,8 +36,8 @@ app.removeWindow = function (){
 
 function main(){
     console.log('Welcome to use PIN. Press h for more info.')
-    if (process.platform == "win32" || true) {
-        console.log('Cli is not support.')
+    if (process.platform == "win32") {
+        console.log('On win32 platform, cli is not support.')
         app.appendWindow()
     } else {
         const rl = readline.createInterface({
