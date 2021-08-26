@@ -1,5 +1,6 @@
-const { dialog } = require('electron').remote
+const {dialog} = require('electron').remote
 const {Button} = require('./Button')
+const fs = require('fs')
 
 class SaveButton extends Button{
     constructor(vditor, id){
