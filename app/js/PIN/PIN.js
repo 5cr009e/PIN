@@ -1,4 +1,4 @@
-const {app} = require('electron').remote
+const {app} = require('@electron/remote')
 
 const {Button} = require('./Buttons/Button')
 const ChangeThemeButton = require('./Buttons/ChangeThemeButton').ChangeThemeButton

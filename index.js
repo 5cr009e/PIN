@@ -1,4 +1,6 @@
-const {app, BrowserWindow} = require('electron')
+require('@electron/remote/main').initialize()
+const {app, BrowserWindow, webContents } = require('electron')
+
 const url = require('url')
 const path = require('path')
 // const readline = require('readline');
@@ -11,8 +13,10 @@ function createWindow(BrowserWindow){
         height: 800,
         frame: false,
         webPreferences: {
+            enableRemoteModule: true,
             nodeIntegration: true,
-            experimentalFeatures: true
+            contextIsolation: false,
+            experimentalFeatures: true,
         },
         vibrancy: 'light'
     })
@@ -22,7 +26,7 @@ function createWindow(BrowserWindow){
         protocol: 'file',
         slashes: true
     }))
-    // win.webContents.openDevTools();
+    win.webContents.openDevTools();
     return win
 }
 
@@ -38,6 +42,9 @@ app.removeWindow = function (){
 app.loadThemes = function () {
     return require('./themes.json');
 }
+require('@electron/remote/main').enable(webContents);
+require('@electron/remote/main').enable(app.loadThemes);
+require('@electron/remote/main').enable(app.appendWindow);
 
 function main(){
     // console.log('Welcome to use PIN. Press h for more info.')

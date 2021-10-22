@@ -1,4 +1,4 @@
-const {dialog} = require('electron').remote
+const {dialog} = require('@electron/remote').
 const {Button} = require('./Button')
 const fs = require('fs')
 
