@@ -1,7 +1,8 @@
-class Button{
-    constructor(id, clickEvent){
-        this.btn = document.getElementById(id).addEventListener("click", () => { clickEvent() })
-        return this.btn
+class Button {
+    constructor(id, clickEvent) {
+        document.getElementById(id).addEventListener("click", () => {
+            clickEvent()
+        })
     }
 }
 

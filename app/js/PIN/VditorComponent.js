@@ -1,24 +1,27 @@
-class VditorComponent{
-    constructor(initValue = 'Pin!'){
-        let vditor = new Vditor('vditor', 
+class VditorComponent {
+    constructor(initValue = 'Pin!') {
+        let vditor = new Vditor('vditor',
             {
                 toolbarConfig: {
-                    pin: true,    
+                    pin: true,
                 },
                 cache: {
-                    enable: false,    
+                    enable: false,
                 },
-                after () {
-                    vditor.setValue(initValue)}})
+                after() {
+                    vditor.setValue(initValue)
+                }
+            })
         this.vditor = vditor
     }
 
-    getElement(){
+    getElement() {
         return document.getElementById('vditor')
     }
 
-    getVditor(){
+    getVditor() {
         return this.vditor
     }
 }
+
 exports.VditorComponent = VditorComponent
