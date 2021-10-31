@@ -1,8 +1,11 @@
-const {dialog} = require('electron').remote
-const {Button} = require('./Button')
-const fs = require('fs')
+import {Button} from "./button";
+import {PathOrFileDescriptor, readFileSync, writeFileSync} from "fs";
 
-class SaveButton extends Button {
+const {dialog} = require('electron').remote
+
+// const fs = require('fs')
+
+export class SaveButton extends Button {
     constructor(vditor, id) {
         super(id, () => {
             dialog.showSaveDialog({
@@ -10,24 +13,20 @@ class SaveButton extends Button {
             }).then((res) => {
                 console.log(res);
 
-                fs.writeFileSync(res.filePath, vditor.getValue())
+                writeFileSync(res.filePath, vditor.getValue())
             }).catch((req) => console.log(req))
         })
     }
 }
 
-class LoadButton extends Button {
+export class LoadButton extends Button {
     constructor(vditor, id) {
         super(id, () => {
             dialog.showOpenDialog(
                 {properties: ['openFile']}
             ).then((res) => {
-                console.log(res.filePaths[0])
-                vditor.setValue(fs.readFileSync(res.filePaths[0]))
+                vditor.setValue(readFileSync(res.filePaths[0]))
             }).catch((req) => console.log(req))
         })
     }
 }
-
-exports.SaveButton = SaveButton
-exports.LoadButton = LoadButton

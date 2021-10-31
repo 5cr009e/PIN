@@ -1,4 +1,7 @@
-class VditorComponent {
+import Vditor from "node_modules/vditor/dist/index";
+
+export class VditorComponent {
+    vditor: Vditor
     constructor(initValue = 'Pin!') {
         let vditor = new Vditor('vditor',
             {
@@ -23,5 +26,3 @@ class VditorComponent {
         return this.vditor
     }
 }
-
-exports.VditorComponent = VditorComponent

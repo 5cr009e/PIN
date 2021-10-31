@@ -2,18 +2,23 @@
   "name": "pin",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
+
   "scripts": {
-    "start": "./node_modules/electron/dist/electron ./index.js",
-    "package": "electron-packager . pin --arch=x64 --icon=assets/PIN.ico --out=./out --app-version=0.0.1 --overwrite"
+    "clean": "rm -r dist/src",
+    "start": "tsc && ./node_modules/electron/dist/electron dist",
+    "winstart": "tsc && .\\node_modules\\electron\\dist\\electron dist",
+    "package": "electron-packager ./dist/index.js pin --arch=x64 --icon=assets/PIN.ico --out=./out --app-version=0.0.1 --overwrite"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "electron": "^9.3.0",
+    "electron": "^9.4.4",
     "vditor": "^3.8.7"
   },
   "devDependencies": {
+    "@types/electron": "^1.6.10",
+    "@types/node": "^16.11.6",
     "electron-packager": "^15.4.0"
   }
 }

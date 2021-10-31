@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>PIN</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/vditor/dist/index.min.js"></script>
+    <link rel="stylesheet" href="../node_modules/vditor/dist/index.css"/>
+    <script src="../node_modules/vditor/dist/index.min.js"></script>
     <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
@@ -14,19 +14,19 @@
         <!-- container of top-bar and minimize button on top right -->
         <div id="btn-theme-cold">
             <svg width="100%" height="100%">
-                <circle id="mycircle" cx="20px" cy="20px" r="8" fill="MidnightBlue"/>
+                <circle id="circle" cx="20px" cy="20px" r="8" fill="MidnightBlue"/>
             </svg>
         </div>
 
         <div id="btn-theme-warm">
             <svg width="100%" height="100%">
-                <circle id="mycircle" cx="20px" cy="20px" r="8" fill="SandyBrown"/>
+                <circle id="brown_circle" cx="20px" cy="20px" r="8" fill="SandyBrown"/>
             </svg>
         </div>
 
         <div id="btn-theme-black">
             <svg width="100%" height="100%">
-                <circle id="mycircle" cx="20px" cy="20px" r="8" fill="black"/>
+                <circle id="black_circle" cx="20px" cy="20px" r="8" fill="black"/>
             </svg>
         </div>
 
@@ -34,7 +34,7 @@
         </div>
         <div id="btn-minimize">
             <svg width="100%" height="100%">
-                <circle id="mycircle" cx="20px" cy="20px" r="8" fill="white"/>
+                <circle id="white_circle" cx="20px" cy="20px" r="8" fill="white"/>
             </svg>
         </div>
 
@@ -43,15 +43,16 @@
     <!-- main body for vditor -->
     <div id="vditor"></div>
 
-    <!-- Aligned buttons including Pin, save and load -->
-    <div class="display-flex display-btns">
+    <!-- Aligned Buttons including Pin, save and load -->
+    <div class="display-flex display-buttons">
         <div id="new-window" class="div-btn dark-btn">Pin</div>
         <!-- <div id="remove-window" class="div-btn dark-btn">Pop</div> -->
         <div id="btn-save" class="div-btn light-btn">Save</div>
         <div id="btn-load" class="div-btn light-btn">Load</div>
     </div>
 </div>
-<script src="js/render.js"></script>
+
+<script type="module" src="./src/render.js"></script>
 </body>
 
 </html>

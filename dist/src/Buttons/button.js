@@ -1,9 +1,8 @@
-class Button {
+export class Button {
     constructor(id, clickEvent) {
         document.getElementById(id).addEventListener("click", () => {
-            clickEvent()
-        })
+            clickEvent();
+        });
     }
 }
-
-exports.Button = Button
+//# sourceMappingURL=button.js.map

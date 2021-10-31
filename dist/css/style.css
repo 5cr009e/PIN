@@ -38,7 +38,7 @@ body {
     display: flex;
 }
 
-.display-btns {
+.display-buttons {
     position: fixed;
     bottom: 0;
     width: 100%;
